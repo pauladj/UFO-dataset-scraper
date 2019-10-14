@@ -1,4 +1,4 @@
 # DOn't track
 .idea/
 src/__pycache__/
-src/tempt/
+src/temp/
