@@ -1,7 +1,7 @@
 import argparse
 
-from src.exceptions import FetchingPageException
-from src.ufo_scraper import UFOScraper
+from exceptions import FetchingPageException
+from ufo_scraper import UFOScraper
 
 
 def getargs():
@@ -15,7 +15,7 @@ def getargs():
 
     parser.add_argument('-y', '--year', required=False, action='store',
                         help='The limit year to scrape',
-                        type=int, default=1800)
+                        type=int, default=2016)
     parser.add_argument('-o', '--output', required=False, action='store',
                         help='The output csv file', default="ufo_dataset.csv")
 
