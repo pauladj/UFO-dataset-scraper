@@ -30,11 +30,13 @@ class UFOScraper:
             }
 
             response = requests.get(url, headers=headers, timeout=5)
+            response.encoding = "cp1252"
             if response.status_code == 200:
-                return BeautifulSoup(response.content, 'html.parser')
+                return BeautifulSoup(response.text,
+                                     'html.parser')
             else:
                 raise Exception()
-        except (requests.exceptions.RequestException, Exception) as e:
+        except (requests.exceptions.RequestException, Exception):
             if retries == 0:
                 raise FetchingPageException("Could not get one of the pages")
             else:
@@ -85,8 +87,8 @@ class UFOScraper:
         for row in table_rows:
             # add info of a single report to the dataframe with the rest of
             # them
-            row_elements = [x.text.replace(";", "") for x in row.find_all(
-                "font")]
+            row_elements = [x.text.replace(";", "") for x in
+                            row.find_all("font")]
             self.reports = DataFramer.append_to(self.reports, row_elements)
 
     def scrape(self):
