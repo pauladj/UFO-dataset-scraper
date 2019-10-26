@@ -14,10 +14,11 @@ def getargs():
     parser = argparse.ArgumentParser(description="UFO Scraper")
 
     parser.add_argument('-y', '--year', required=False, action='store',
-                        help='The limit year to scrape',
+                        help='The limit year to scrape (default: 1800)',
                         type=int, default=1800)
     parser.add_argument('-o', '--output', required=False, action='store',
-                        help='The output csv file', default="ufo_dataset.csv")
+                        help='The output csv file (default: ufo_dataset.csv)',
+                        default="ufo_dataset.csv")
 
     return parser.parse_args()
 
