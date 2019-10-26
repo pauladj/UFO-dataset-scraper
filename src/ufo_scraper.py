@@ -7,13 +7,11 @@ from exceptions import FetchingPageException
 
 class UFOScraper:
 
-    # COMENTAR CÓDIGO PARA QUE SE ENTIENDA
-
     def __init__(self, year_limit, output_file):
         self.base_url = "http://www.nuforc.org/webreports/"
         self.principal_url = self.base_url + "ndxevent.html"
         self.reports = None  # dataframe containing the data
-        # by default get all the reports between 2019 and 2017
+        # by default get all the reports between 2019 and 1800
         self.year_limit = year_limit
         self.output_file = output_file
 
@@ -43,10 +41,6 @@ class UFOScraper:
                 # try again
                 return self.get_page_html(url, retries - 1)
 
-    def metodo_sucio(self, content, nombre):
-        with open("temp/{}.html".format(nombre), "w") as file:  # TODO borrar
-            file.write(str(content))
-
     def get_reports_links(self):
         """
         Get the reports' pages links
@@ -58,8 +52,12 @@ class UFOScraper:
 
         for link in table_links:
             month_year = link.text
+
+            if "UNSPECIFIED" in month_year:
+                break
+
             year = month_year.split("/")[1]
-            if self.year_limit == int(year):
+            if self.year_limit > int(year):
                 break
 
             link_suffix = link.get('href')
@@ -71,7 +69,6 @@ class UFOScraper:
         """
         Collect a month's ufo info
         :param link_suffix: The link suffix of the page
-        :return:
         """
         html = self.get_page_html(self.base_url + link_suffix)
         table = html.find('table')
@@ -86,27 +83,11 @@ class UFOScraper:
         table_rows = table.find("tbody").find_all("tr")
 
         for row in table_rows:
-            row_elements = [x.text for x in row.find_all("font")]
-            report_link_suffix = row.find('a').get('href')
-            description = self.get_report_description(
-                self.base_url + report_link_suffix)
-            row_elements[5] = description
-
+            # add info of a single report to the dataframe with the rest of
+            # them
+            row_elements = [x.text.replace(";", "") for x in row.find_all(
+                "font")]
             self.reports = DataFramer.append_to(self.reports, row_elements)
-
-        # TODO cuidado celdas vacías --
-        # http://www.nuforc.org/webreports/ndxe199502.html
-
-    def get_report_description(self, url):
-        """
-        Get a report's description given its url
-        :param url: the url of a single report
-        :return: the description
-        """
-        html = self.get_page_html(url)
-        description_box = html.find('table').find('tbody').find_all('td')[-1]
-        description_text = description_box.get_text()
-        return description_text
 
     def scrape(self):
         """
@@ -129,4 +110,8 @@ class UFOScraper:
         Save the collected data to file
         :return:
         """
-        self.reports.to_csv(self.output_file)
+        if self.reports is not None:
+            DataFramer.export_to_csv(self.reports, self.output_file)
+            print("The UFO dataset has been exported")
+        else:
+            raise Exception("There is no data to export")

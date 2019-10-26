@@ -15,7 +15,7 @@ def getargs():
 
     parser.add_argument('-y', '--year', required=False, action='store',
                         help='The limit year to scrape',
-                        type=int, default=2016)
+                        type=int, default=1800)
     parser.add_argument('-o', '--output', required=False, action='store',
                         help='The output csv file', default="ufo_dataset.csv")
 

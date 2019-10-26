@@ -23,3 +23,15 @@ class DataFramer:
         new_dataframe = pd.DataFrame([row], columns=dataframe.columns)
         dataframe = dataframe.append(new_dataframe)
         return dataframe
+
+    @staticmethod
+    def export_to_csv(dataframe, output_file):
+        """
+        Export a dataframe to a csv
+        :param dataframe: dataframe to export
+        :param output_file: the output file
+        """
+        try:
+            dataframe.to_csv(output_file, index=False, encoding="cp1252")
+        except Exception as e:
+            raise Exception("Error saving the file: {}".format(str(e)))
