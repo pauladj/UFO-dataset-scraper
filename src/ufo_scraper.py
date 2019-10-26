@@ -30,10 +30,9 @@ class UFOScraper:
             }
 
             response = requests.get(url, headers=headers, timeout=5)
-            response.encoding = "cp1252"
+            response.encoding = "iso-8859-1"
             if response.status_code == 200:
-                return BeautifulSoup(response.text,
-                                     'html.parser')
+                return BeautifulSoup(response.text, features='html.parser')
             else:
                 raise Exception()
         except (requests.exceptions.RequestException, Exception):
@@ -87,8 +86,10 @@ class UFOScraper:
         for row in table_rows:
             # add info of a single report to the dataframe with the rest of
             # them
-            row_elements = [x.text.replace(";", "") for x in
-                            row.find_all("font")]
+            row_elements = [x.text.replace(
+                ";", "").encode("cp1252",
+                                errors='ignore').decode(
+                "cp1252") for x in row.find_all("font")]
             self.reports = DataFramer.append_to(self.reports, row_elements)
 
     def scrape(self):
