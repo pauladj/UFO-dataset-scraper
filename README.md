@@ -1,4 +1,4 @@
-# UFO database scraper
+# UFO dataset scraper
 
 <div align="center"><img src="img/ufo.jpg" width="480" /></div>
 
