@@ -2,7 +2,7 @@
 
 **Descripción**
 
-Esta práctica pertenece a la asignatura _Tipología y ciclo de vida de los datos_, perteneciente al Máster de Ciencia de Datos de la Universitat Oberta de Catalunya. Se aplica la técnica del _Web Scraping_ para conseguir relatos sobre experiencias relacionadas con el fenómeno UFO. El objetivo final de esta práctica será obtener un dataset.
+Esta práctica pertenece a la asignatura _Tipología y ciclo de vida de los datos_, perteneciente al Máster de Ciencia de Datos de la Universitat Oberta de Catalunya. Se aplica la técnica del _Web Scraping_ para conseguir relatos sobre experiencias relacionadas con el fenómeno UFO (http://www.nuforc.org/). El objetivo final de esta práctica será obtener un dataset.
 
 **Miembros del equipo**
 
