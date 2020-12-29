@@ -1,4 +1,6 @@
-# UFO-database-scraper
+# UFO database scraper
+
+<div align="center"><img src="img/ufo.jpg" width="480" /></div>
 
 **Descripción**
 
@@ -10,7 +12,6 @@ La práctica se ha realizado de manera individual por Paula de Jaime.
 
 **Archivos del código fuente**
 * **src/main.py:** Fichero que se encarga de inicializar el proceso de _scraping_ y de guardar los datos resultantes a un fichero llamado _ufo_dataset.csv_. Si el usuario introduce por consola la instrucción `python main.py -h` puede consultar los diferentes argumentos **opcionales** que puede introducir:
-> 
 ```
 usage: main.py [-h] [-y YEAR] [-o OUTPUT]
 
